@@ -1,0 +1,40 @@
+function post_value($field, $value, $connection){
+	
+	// Check connection
+	if ($connection->connect_error) {
+	    die("Connection failed: " . $connection->connect_error);
+	} 
+	$sql = "INSERT INTO `tbl_broker` (`FIELD`, `VALUE`, `TIMESTAMP`) VALUES ('".$field."', '". $value ."',CURRENT_TIMESTAMP);";
+	//echo $sql;
+	
+	if ($connection->query($sql) === TRUE) {
+	    echo "{status:1}";
+	} else {
+	    echo "{status:-1}" . $connection->error;
+	}
+}
+
+function get_value($field, $connection){
+	
+	// Check connection
+	if ($connection->connect_error) {
+	    die("Connection failed: " . $connection->connect_error);
+	} 
+	$sql = "SELECT * FROM `tbl_broker` WHERE FIELD='".$field."' ORDER BY ID DESC LIMIT 1";
+	//echo $sql;
+	
+	$result = $connection->query($sql);
+	
+	if ($result->num_rows > 0) {
+		// output data of each row
+		while($row = $result->fetch_assoc()) {
+			echo " {
+						\"status\":1,
+						\"field\":\"".$field."\",
+						\"value\":\"".$row["VALUE"]."\"
+					}";
+		}
+	} else {
+		echo "{status:-1}";
+	}
+}
