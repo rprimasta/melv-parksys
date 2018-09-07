@@ -94,7 +94,7 @@ label#c {
 		  }
 		 });
 		window.setTimeout('animate()', 1000);
-		setTimeout("location.href = 'http://sv01.inovindojayaabadi.co.id/melvin/display';", 20000);
+		setTimeout("location.href = 'http://103.8.79.69/melvin/display';", 20000);
       }
       animate();
     </script> 
